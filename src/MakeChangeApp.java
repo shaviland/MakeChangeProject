@@ -14,7 +14,7 @@ public class MakeChangeApp {
 			tenderPaid = kb.nextDouble();
 
 			if (tenderPaid < priceOwed) {
-				System.err.println("Not enough tender. Please pay the amount owed. $" + priceOwed);
+				System.out.println("Not enough tender. Please pay the amount owed. $" + priceOwed);
 			} else {
 				System.out.println("The change is:\n");
 			}
