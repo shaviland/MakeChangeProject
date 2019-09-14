@@ -5,20 +5,34 @@ public class MakeChangeApp {
 		Scanner kb = new Scanner(System.in);
 		double priceOwed = 0.0;
 		double tenderPaid = 0.0;
-		double roundedPenny = 0.005;
+		
+		while (true) {
+			System.out.println("Please input amount owed: ");
+			priceOwed = kb.nextDouble();
 
-		System.out.println("Please input amount owed: ");
-		priceOwed = kb.nextDouble();
+			System.out.println("Please input amount paid: ");
+			tenderPaid = kb.nextDouble();
 
-		System.out.println("Please input amount paid: ");
-		tenderPaid = kb.nextDouble();
-
-		if (tenderPaid < priceOwed) {
-			System.err.println("Not enough tender. Please pay the amount owed. $" + priceOwed);
-		}else {
-			System.out.println("The change is:");
+			if (tenderPaid < priceOwed) {
+				System.err.println("Not enough tender. Please pay the amount owed. $" + priceOwed);
+			} else {
+				System.out.println("The change is:\n");
+			}
+			changeCalculation(tenderPaid, priceOwed);
+			
+			System.out.println("\nWould you like another transaction?");
+			String again = kb.next();
+			if(again.equalsIgnoreCase("no") || again.equalsIgnoreCase("n")) {
+				System.out.println("Goodbye.");
+				break;
+			}
+			
 		}
+		kb.close();
+	}
 
+	public static void changeCalculation(double tenderPaid, double priceOwed) {
+		double roundedPenny = 0.005;
 		double changeCalc = (tenderPaid - priceOwed + roundedPenny);
 //		System.out.println(changeCalc);
 
