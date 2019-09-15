@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class MakeChangeApp {
@@ -5,7 +6,7 @@ public class MakeChangeApp {
 		Scanner kb = new Scanner(System.in);
 		double priceOwed = 0.0;
 		double tenderPaid = 0.0;
-		
+
 		while (true) {
 			System.out.println("Please input amount owed: ");
 			priceOwed = kb.nextDouble();
@@ -15,18 +16,20 @@ public class MakeChangeApp {
 
 			if (tenderPaid < priceOwed) {
 				System.out.println("Not enough tender. Please pay the amount owed. $" + priceOwed);
+			} else if (tenderPaid == priceOwed) {
+				System.out.println("Payment accepted. No change.");
 			} else {
 				System.out.println("The change is:\n");
 			}
 			changeCalculation(tenderPaid, priceOwed);
-			
+
 			System.out.println("\nWould you like another transaction?");
 			String again = kb.next();
-			if(again.equalsIgnoreCase("no") || again.equalsIgnoreCase("n")) {
+			if (again.equalsIgnoreCase("no") || again.equalsIgnoreCase("n")) {
 				System.out.println("Goodbye.");
 				break;
 			}
-			
+
 		}
 		kb.close();
 	}
@@ -35,6 +38,13 @@ public class MakeChangeApp {
 		double roundedPenny = 0.005;
 		double changeCalc = (tenderPaid - priceOwed + roundedPenny);
 //		System.out.println(changeCalc);
+		int decimalPlaces = 2;
+		BigDecimal bd = new BigDecimal(changeCalc);
+		bd = bd.setScale(decimalPlaces, BigDecimal.ROUND_DOWN);
+		double changePrint = bd.doubleValue();
+		if (changePrint > 0) {
+			System.out.println("$" + changePrint);
+		}
 
 		int penniesStart = (int) (changeCalc * 100);
 //		System.out.println(penniesStart);		
